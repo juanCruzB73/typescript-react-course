@@ -15,8 +15,12 @@ export const useForm = <T extends FormValues>(initialValues:T)=>{
         })
     }
 
+    const onResetForm=()=>{
+        setFormState(initialValues);
+    }
+
     return{
-        ...formState,formState,onInputChange,
+        ...formState,formState,onInputChange,onResetForm
     }
 
 }
