@@ -10,7 +10,7 @@ interface Props{
 
 export const InputsFields:FC<Props> = ({todos,setTodos}) => {
 
-    const{inputField,onInputChange,formState,onResetForm}=useForm({
+    const{inputField,onInputChange,onResetForm}=useForm({
         inputField:''
     });
 
