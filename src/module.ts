@@ -1,10 +1,12 @@
+//import { useReducer } from 'react'
+
 export interface Todo{
     id:number;
     todo:string;
     isDone:boolean;
 }
 
-import { useReducer } from 'react'
+
 
 export type Actions=
     |{type:"add";payload:string}
@@ -35,16 +37,4 @@ export const TodoReducer=(state:Todo[],action:Actions)=>{
             return state;
         }
     }
-
-
-
-export const module = () => {
-
-const[state,dispatch]=useReducer(TodoReducer,[])
-
-return (
-    <div>
-      
-    </div>
-  )
-}
+//export module

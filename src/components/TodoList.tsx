@@ -1,41 +1,29 @@
 import { FC, Dispatch } from "react";
-import { Todo } from "../module";
 import { TodoItem } from "./TodoItem";
 import { Droppable } from "react-beautiful-dnd";
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState, AppDispatch } from '../redux/store/store';
 
 interface Props {
-  todos: Todo[];
-  setTodos: Dispatch<React.SetStateAction<Todo[]>>;
   droppableId: string;
 }
 
-export const TodoList: FC<Props> = ({ todos, setTodos, droppableId }) => {
-  console.log(droppableId,typeof droppableId)
+export const TodoList: FC<Props> = ({droppableId}) => {
+
+  const todos=useSelector((state:RootState)=>state.todos.todos)
+  const dispatch=useDispatch<AppDispatch>();
+
   return (
-    <div>
-      {(todos.length === 0)?
-        (<p>No tasks yet</p>):
-        (<Droppable droppableId={droppableId}>
+    <Droppable droppableId={droppableId}>
       {(provided) => (
-        <div {...provided.droppableProps} ref={provided.innerRef}>
-          {(
-            todos.map((todo, index) => (
-              <TodoItem
-                key={todo.id}
-                index={index}
-                todo={todo}
-                todos={todos}
-                setTodos={setTodos}
-              />
-            ))
-          )}
+        <div {...provided.droppableProps} ref={provided.innerRef} style={{ minHeight: '100px', border: '1px solid lightgray', background: 'lightgrey' }}>
+          {todos.map((todo, index) => (
+              <TodoItem key={todo.id} index={index} todo={todo} />
+            ))}
           {provided.placeholder}
-    </div>
-  )}
-  </Droppable>)
-        }
-    
-  </div>
-  
+        </div>
+      )}
+    </Droppable>
   );
 };
+

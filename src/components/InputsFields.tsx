@@ -1,14 +1,16 @@
-import { Dispatch, FC, useRef, useState } from "react";
+import { Dispatch, FC } from "react";
 import { useForm } from "../hooks/useForm"
 import { Todo } from "../module";
-import { TodoList } from "./TodoList";
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState, AppDispatch } from '../redux/store/store';
+import { onAddTodo } from "../redux/slices/todoSlice";
 
-interface Props{
-    todos:Todo[];
-    setTodos:Dispatch<React.SetStateAction<Todo[]>>;
-}
 
-export const InputsFields:FC<Props> = ({todos,setTodos}) => {
+export const InputsFields:FC = () => {
+
+    const todos=useSelector((state:RootState)=>state.todos.todos)
+    const dispatch=useDispatch<AppDispatch>();
+
 
     const{inputField,onInputChange,onResetForm}=useForm({
         inputField:''
@@ -17,8 +19,9 @@ export const InputsFields:FC<Props> = ({todos,setTodos}) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if(inputField){
-            setTodos([...todos,{id:Date.now(),todo:inputField,isDone:false}])
-            onResetForm();            
+            dispatch(onAddTodo({id:Date.now(),todo:inputField,isDone:false}))
+            /*setTodos([...todos,{id:Date.now(),todo:inputField,isDone:false}])*/ 
+            onResetForm();           
         }
         console.log(todos)   
       };

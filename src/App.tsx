@@ -1,14 +1,20 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { InputsFields } from "./components/InputsFields";
-import { Todo } from "./module";
 import { TodoList } from "./components/TodoList";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { EmptyTodos } from "./components/EmptyTodos";
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState, AppDispatch } from './redux/store/store';
+import { onAddTodo } from "./redux/slices/todoSlice";
 
 export const App: FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
 
+  const todos=useSelector((state:RootState)=>state.todos.todos)
+  const dispatch=useDispatch<AppDispatch>();
+  
   const onDragEnd = (result: DropResult) => {
+
+    console.log("Drag End Result:", result);
     const { source, destination } = result;
 
     if (!destination) return;
@@ -16,52 +22,41 @@ export const App: FC = () => {
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
-    )
-      return;
+    ) return;
 
     let add;
     let active = [...todos];
-    let complete = [...completedTodos];
+    //let complete = [...completedTodos];
 
-    if (source.droppableId === "todoItems") {
+    if (source.droppableId === "todoItems") {    
       add = active[source.index];
-      active.splice(source.index, 1);
+      console.log(add);
+      //active.splice(source.index, 1);
     } else {
-      add = complete[source.index];
-      complete.splice(source.index, 1);
+    //add = complete[source.index];
+    //complete.splice(source.index, 1);
     }
 
     if (destination.droppableId === "todoItems") {
-      active.splice(destination.index, 0, add);
+      console.log(add);
+      //dispatch(onAddTodo(add))
     } else {
-      complete.splice(destination.index, 0, add);
+      //complete.splice(destination.index, 0, add);
     }
 
-    setTodos(active);
-    setCompletedTodos(complete);
+    
+    
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
+      <h1>Taskify</h1>
+      <InputsFields />
+      <h2>Active Tasks</h2>
+      {todos.length===0?<EmptyTodos droppableId="noTodos"/>:<TodoList droppableId="todoItems" />}
+      <h2>Completed Tasks</h2>
       
-        <h1>Taskify</h1>
-        <InputsFields todos={todos} setTodos={setTodos} />
-
-        
-          <h2>Active Tasks</h2>
-          <TodoList  todos={todos} setTodos={setTodos} droppableId="todoItems" />
-        
-
-        
-          <h2>Completed Tasks</h2>
-          <TodoList
-            
-            todos={completedTodos}
-            setTodos={setCompletedTodos}
-            droppableId="doneItems"
-          />
-        
-        
+      
     </DragDropContext>
   );
 };

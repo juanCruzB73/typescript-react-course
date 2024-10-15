@@ -4,18 +4,16 @@ import { type Todo } from "../module";
 import { Draggable } from "react-beautiful-dnd";
 
 interface Props {
-  todos: Todo[];
-  setTodos: Dispatch<React.SetStateAction<Todo[]>>;
   todo: Todo;
   index: number;
 }
 
-export const TodoItem: FC<Props> = ({ index, todo, todos, setTodos }) => {
+export const TodoItem: FC<Props> = ({ index, todo}) => {
   const [edit, setEdit] = useState<boolean>(false); // Edit mode default to false
 
   const { editTodo, onInputChange } = useForm({ editTodo: todo.todo });
 
-  const onEditTodo = (e: React.FormEvent<HTMLFormElement>) => {
+  /*const onEditTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setTodos(
       todos.map((t: Todo) => {
@@ -48,13 +46,19 @@ export const TodoItem: FC<Props> = ({ index, todo, todos, setTodos }) => {
       })
     );
   };
+  onSubmit={onEditTodo}
+  onClick={() => setEdit(!edit)}
+  onClick={() => onDeleteTodo(todo.id)}
+  onClick={() => onDoneTodo(todo.id)}
+  */
+  
 
   return (
     
     <Draggable draggableId={todo.id.toString()} index={index}>
       {(provided) => (
         <form
-          onSubmit={onEditTodo}
+          
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
@@ -64,9 +68,9 @@ export const TodoItem: FC<Props> = ({ index, todo, todos, setTodos }) => {
           ) : (
             <p>{todo.todo}</p>
           )}
-          <span onClick={() => setEdit(!edit)}>edit</span>
-          <span onClick={() => onDeleteTodo(todo.id)}>delete</span>
-          <span onClick={() => onDoneTodo(todo.id)}>complete</span>
+          <span>edit</span>
+          <span>delete</span>
+          <span>complete</span>
         </form>
       )}
     </Draggable>
