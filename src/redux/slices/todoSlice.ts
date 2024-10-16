@@ -30,24 +30,6 @@ const onEditTodo = (e: React.FormEvent<HTMLFormElement>) => {
     );
     setEdit(!edit); // Toggle edit mode after updating
   };
-
-  const onDeleteTodo = (id: number) => {
-    setTodos(todos.filter((todo: Todo) => todo.id !== id));
-  };
-
-  const onDoneTodo = (id: number) => {
-    setTodos(
-      todos.map((todo: Todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            isDone: !todo.isDone, // Toggle isDone flag
-          };
-        }
-        return todo;
-      })
-    );
-  };
 */
 export const todoSlice = createSlice({
   name: 'todos',
@@ -57,16 +39,28 @@ export const todoSlice = createSlice({
       state.todos=[...state.todos,{id:action.payload.id,todo:action.payload.todo,isDone:action.payload.isDone}]
       
     },
-    onDoneTodo: (state) => {
-      
+    onOrganizeTodo:(state,action:PayloadAction<ITodo[]>)=>{
+      state.todos=action.payload;
     },
-    onDeleteTodo: (state, action) => {
-      
+    onDoneTodo: (state,action:PayloadAction<number>) => {
+      const todo=state.todos.find(todo=>todo.id===action.payload)
+      if(todo){
+        todo.isDone=!todo.isDone
+      }
     },
+    onDeleteTodo: (state, action:PayloadAction<number>) => {
+      state.todos=state.todos.filter((todo) => todo.id !== action.payload)
+    },
+    onEditTodo:(state, action:PayloadAction<ITodo>)=>{
+      const todo=state.todos.find((todo:ITodo)=>todo.id===action.payload.id)
+      if(todo){
+        todo.todo=action.payload.todo;
+      }
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { onAddTodo, onDoneTodo, onDeleteTodo } = todoSlice.actions
+export const { onAddTodo, onOrganizeTodo, onDoneTodo, onDeleteTodo,onEditTodo } = todoSlice.actions
 
 export default todoSlice.reducer
