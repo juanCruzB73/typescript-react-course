@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { type Task } from '../../types';
+import { type Task } from '../../todo-dad-redux/types';
 
 type FormProps = {
   addTask: (task: Task) => void;

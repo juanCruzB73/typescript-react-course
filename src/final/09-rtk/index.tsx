@@ -1,4 +1,4 @@
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../todo-dad-redux/redux/store/store';
 import { decrement, increment, reset, setStatus } from './counterSlice';
 function RTK() {
   const { count, status } = useAppSelector((state) => state.counter);

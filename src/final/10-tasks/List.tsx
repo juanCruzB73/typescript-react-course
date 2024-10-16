@@ -1,4 +1,4 @@
-import { type Task } from '../../types';
+import { type Task } from '../../todo-dad-redux/types';
 
 type ListProps = {
   tasks: Task[];

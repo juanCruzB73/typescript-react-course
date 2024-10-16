@@ -6,7 +6,8 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from './redux/store/store';
 import {  onDoneTodo, onOrganizeTodo } from "./redux/slices/todoSlice";
 import { useTodos } from "./hooks/useTodos";
-import { EmptyTodos } from "./components/EmptyTodos";
+import './index.css'
+
 export const App: FC = () => {
 
   const {todos,todoTodos,completeTodos}=useTodos()

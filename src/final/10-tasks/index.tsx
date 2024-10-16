@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Form from './Form';
 import List from './List';
-import { type Task } from '../../types';
+import { type Task } from '../../todo-dad-redux/types';
 
 function loadTasks(): Task[] {
   const storedTasks = localStorage.getItem('tasks');
