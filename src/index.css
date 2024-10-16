@@ -1,3 +1,77 @@
 *{
     font-family: "Roboto", sans-serif;
+    padding: 0px;
+    margin: 0px;
+    color: white;
+    background-color: #21232A;
+
+}
+.inputField{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.inputField h1{
+    padding: 1rem;
+}
+.inputForm{
+    width: 40%;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+.inputForm input{
+    background-color: white;
+    color: black;
+    padding: 0.3rem;
+    border: none;
+    border-radius: 4px;
+    margin-right: 0.4rem;
+    margin-left: 0.4rem;
+}
+.inputForm button{
+    background-color: white;
+    color: black;
+    padding: 0.2rem;  
+    border: none;
+    border-radius: 4px;  
+}
+.boards{
+    display: flex;
+    
+    justify-content: space-around;
+}
+.boardContainer{
+    width: 45%;
+    text-align: center;
+}
+.todoContainer{
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 1rem;
+    border: none;
+    background: white;
+    border-radius: 0.3rem;
+    min-height: 20vh;
+}
+.task{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.4rem;
+    margin-bottom: 0.4rem;
+    width: 90%;
+}
+.task span{
+    font-size: 0.9rem;
+}
+.task input{
+    background-color: white;
+    color: black;
+    padding-inline: 1rem;
+    border: none;
+    border-radius: 8px;
 }

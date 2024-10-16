@@ -23,11 +23,12 @@ export const InputsFields:FC = () => {
       };
     
   return (
-    
+    <div className="inputField">
+    <h1>Taskify</h1>
     <form className="inputForm" onSubmit={handleSubmit} >
-        <input name="inputField" value={inputField} onChange={onInputChange} type="text" className="inputFild"/>
+        <input name="inputField" placeholder="Add todo"  value={inputField} onChange={onInputChange} type="text" className="inputFild"/>
         <button type="submit" className="inputButton">submit</button>
     </form>
-    
+    </div>
     )
 }
