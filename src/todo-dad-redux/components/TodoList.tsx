@@ -12,7 +12,7 @@ interface Props {
 export const TodoList: FC<Props> = ({droppableId}) => {
   console.log(droppableId)
 
-  const {todos,todoTodos,completeTodos}=useTodos()
+  const {todoTodos,completeTodos}=useTodos()
   
   return (
     <Droppable droppableId={droppableId}>
